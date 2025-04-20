@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>YouTube, Games, and Watch Party Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: linear-gradient(to right, #004d4d, #004d4d);
+        }
+        .plus-button {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #1e90ff;
+            color: #fff;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+            transition: all 0.3s ease;
+        }
+        .plus-button:hover {
+            transform: scale(1.2);
+            background: #1e90ff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+        .phone-wrap {
+            position: fixed;
+            top: 50%;
+            right: -360px;
+            transform: translateY(-50%);
+            width: 340px;
+            height: 700px;
+            transition: right 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 1001;
+        }
+        .phone-wrap.active {
+            right: 20px;
+        }
+        .phone {
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            border-radius: 60px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            border: 8px solid #FFFFFF;
+        }
+        .time-widget {
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            margin: 10px;
+        }
+        .time {
+            font-size: 50px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .ampm {
+            font-size: 20px;
+            margin-left: 5px;
+        }
+        .date {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .app-screen, .games-screen, .youtube-container, .watchparty-screen, .happytalk-screen {
+            width: 100%;
+            height: calc(100% - 190px);
+            background: #000;
+            color: #fff;
+            padding: 20px;
+            overflow-y: auto;
+            display: none;
+        }
+        .app-screen.active, .games-screen.active, .youtube-container.active, .watchparty-screen.active, .happytalk-screen.active {
+            display: block;
+        }
+        .app-search {
+            margin-bottom: 20px;
+        }
+        .app-search input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background: #121212;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+        }
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            justify-items: center;
+        }
+        .app-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .app-icon:hover {
+            transform: scale(1.15);
+        }
+        .app-title {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .game-link {
+            display: block;
+            padding: 10px;
+            background: #1a1a1a;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: background 0.3s;
+        }
+        .game-link:hover {
+            background: #333;
+        }
+        .youtube-container {
+            background: #181818;
+        }
+        .youtube-content {
+            padding: 10px;
+        }
+        .video-item {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .video-item:hover {
+            transform: scale(1.05);
+        }
+        .bottom-nav {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 10px;
+        }
+        .bottom-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: #FFFFFF;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .bottom-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.15);
+        }
+        .search-container {
+            display: none;
+            position: absolute;
+            top: 100px;
+            left: 20px;
+            right: 20px;
+            background: #181818;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .search-container.active {
+            display: block;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            background: #121212;
+            color: #fff;
+            border: none;
+            font-size: 16px;
+        }
+        .happytalk-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9ff3, #48dbfb);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+            width: 200px;
+            text-align: center;
+            color: white;
+            margin: 0 auto;
+        }
+        .happytalk-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        .happytalk-text {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .happytalk-tagline {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Plus Button -->
+    <button class="plus-button" id="plus-button"><i class="fas fa-plus"></i></button>
+
+    <!-- Phone Interface -->
+    <div class="phone-wrap" id="phone-wrap">
+        <div class="phone">
+            <div class="time-widget">
+                <div class="time" id="time-widget">00:00 <span class="ampm" id="ampm">AM</span></div>
+                <div class="date" id="date-widget">January 1, 2025</div>
+            </div>
+            <div class="app-screen active" id="app-screen">
+                <div class="app-search">
+                    <input id="app-search-input" placeholder="Search Apps" type="text"/>
+                </div>
+                <div class="app-grid" id="app-grid">
+                    <!-- Apps -->
+                    <div class="app-item">
+                        <div class="app-icon" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg');" id="youtube-app"></div>
+                        <div class="app-title">YouTube</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon" id="games-folder">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="8" y="24" width="48" height="24" rx="12" fill="#4f8cff"/>
+                                <circle cx="22" cy="36" r="5" fill="#fff"/>
+                                <rect x="19" y="33" width="6" height="2" fill="#4f8cff"/>
+                                <rect x="21" y="31" width="2" height="6" fill="#4f8cff"/>
+                                <circle cx="42" cy="36" r="2.5" fill="#fff"/>
+                                <circle cx="48" cy="36" r="2.5" fill="#fff"/>
+                                <circle cx="45" cy="32" r="2.5" fill="#fff"/>
+                                <circle cx="45" cy="40" r="2.5" fill="#fff"/>
+                            </svg>
+                        </div>
+                        <div class="app-title">Games</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon" id="watchparty-app">
+                            <svg viewBox="0 0 64 64">
+                                <circle cx="32" cy="32" r="28" fill="#ffb347"/>
+                                <polygon points="28,22 46,32 28,42" fill="#fff"/>
+                                <circle cx="20" cy="46" r="4" fill="#fff"/>
+                                <circle cx="44" cy="46" r="4" fill="#fff"/>
+                                <ellipse cx="32" cy="52" rx="12" ry="3" fill="#fff" opacity="0.6"/>
+                            </svg>
+                        </div>
+                        <div class="app-title">Watch Party</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon" id="whiteboard-app">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="10" y="14" width="44" height="36" rx="4" fill="#fff" stroke="#333" stroke-width="2"/>
+                                <rect x="14" y="18" width="36" height="28" rx="2" fill="#e3f2fd"/>
+                                <polygon points="50,44 54,50 46,50" fill="#333"/>
+                                <rect x="40" y="38" width="8" height="2" fill="#1976d2"/>
+                                <rect x="18" y="26" width="18" height="2" fill="#1976d2"/>
+                                <rect x="18" y="30" width="10" height="2" fill="#1976d2"/>
+                            </svg>
+                        </div>
+                        <div class="app-title">Whiteboard</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon" id="happytalk-app">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="8" y="16" width="48" height="32" rx="8" fill="url(#grad1)"/>
+                                <path d="M20 28 h24 v4 h-24 z" fill="#fff"/>
+                                <path d="M20 36 h16 v4 h-16 z" fill="#fff"/>
+                                <circle cx="48" cy="32" r="4" fill="#fff"/>
+                                <defs>
+                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ff9ff3"/>
+                                        <stop offset="100%" style="stop-color:#48dbfb"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="app-title">Happy Talk</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon" id="feed-app">
+                            <svg viewBox="0 0 64 64">
+                                <circle cx="32" cy="32" r="28" fill="#4f8cff"/>
+                                <rect x="20" y="22" width="24" height="20" rx="4" fill="#fff"/>
+                                <rect x="24" y="26" width="16" height="4" rx="2" fill="#4f8cff"/>
+                                <rect x="24" y="34" width="12" height="3" rx="1.5" fill="#b3d1ff"/>
+                                <rect x="24" y="40" width="8" height="3" rx="1.5" fill="#b3d1ff"/>
+                                <circle cx="28" cy="30" r="2" fill="#b3d1ff"/>
+                            </svg>
+                        </div>
+                        <div class="app-title">Feed</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon" id="social-app">
+                            <svg viewBox="0 0 64 64">
+                                <circle cx="32" cy="32" r="28" fill="#ffb347"/>
+                                <circle cx="24" cy="32" r="8" fill="#fff"/>
+                                <circle cx="40" cy="32" r="8" fill="#fff"/>
+                                <ellipse cx="32" cy="44" rx="14" ry="6" fill="#fff" opacity="0.7"/>
+                                <circle cx="24" cy="32" r="3" fill="#ffb347"/>
+                                <circle cx="40" cy="32" r="3" fill="#ffb347"/>
+                            </svg>
+                        </div>
+                        <div class="app-title">Social</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon" id="movie-app">
+                            <svg viewBox="0 0 64 64">
+                                <rect x="10" y="16" width="44" height="32" rx="6" fill="#22223b"/>
+                                <polygon points="30,26 46,32 30,38" fill="#ff595e"/>
+                                <rect x="16" y="20" width="4" height="4" rx="2" fill="#f8f9fa"/>
+                                <rect x="16" y="40" width="4" height="4" rx="2" fill="#f8f9fa"/>
+                                <rect x="44" y="20" width="4" height="4" rx="2" fill="#f8f9fa"/>
+                                <rect x="44" y="40" width="4" height="4" rx="2" fill="#f8f9fa"/>
+                            </svg>
+                        </div>
+                        <div class="app-title">Movie</div>
+                    </div>
+                    <div class="app-item">
+                        <div class="app-icon" id="aitools-app">
+                            <svg viewBox="0 0 64 64">
+                                <circle cx="32" cy="32" r="28" fill="#43aa8b"/>
+                                <rect x="20" y="22" width="24" height="20" rx="6" fill="#fff"/>
+                                <circle cx="32" cy="32" r="8" fill="#43aa8b"/>
+                                <path d="M32 28 v-5 M32 36 v5 M36 32 h5 M28 32 h-5" stroke="#43aa8b" stroke-width="2" stroke-linecap="round"/>
+                                <circle cx="32" cy="32" r="2" fill="#fff"/>
+                            </svg>
+                        </div>
+                        <div class="app-title">AI Tools</div>
+                    </div>
+                </div>
+            </div>
+            <div class="games-screen" id="games-screen">
+                <h2 class="text-xl font-bold mb-4">Multiplayer Games</h2>
+                <a href="https://www.crazygames.com/multiplayer" target="_blank" class="game-link">CrazyGames</a>
+                <a href="http://poki.com/en/multiplayer" target="_blank" class="game-link">Poki</a>
+                <a href="https://www.onlinegames.io/t/multiplayer/" target="_blank" class="game-link">OnlineGames.io</a>
+                <a href="https://www.miniplay.com/multiplayer" target="_blank" class="game-link">Miniplay</a>
+                <a href="https://jklm.fun" target="_blank" class="game-link">JKLM.fun</a>
+                <a href="https://skribbl.io" target="_blank" class="game-link">Skribbl.io</a>
+                <a href="https://netgames.io" target="_blank" class="game-link">NetGames</a>
+                <a href="https://codenaes.com" target="_blank" class="game-link">Codenaes</a>
+                <a href="https://www.playok.com" target="_blank" class="game-link">PlayOK</a>
+                <a href="https://boardgamearena.com" target="_blank" class="game-link">Board Game Arena</a>
+                <a href="https://lichess.org" target="_blank" class="game-link">Lichess</a>
+                <a href="https://spyfall.adrianocola.com" target="_blank" class="game-link">Spyfall</a>
+                <a href="https://garticphone.com" target="_blank" class="game-link">Gartic Phone</a>
+                <a href="https://codenames.game" target="_blank" class="game-link">Codenames</a>
+                <a href="https://agar.io" target="_blank" class="game-link">Agar.io</a>
+                <a href="https://slither.io" target="_blank" class="game-link">Slither.io</a>
+                <a href="https://krunker.io" target="_blank" class="game-link">Krunker.io</a>
+                <a href="https://www.blankmediagames.com/TownOfSalem" target="_blank" class="game-link">Town of Salem</a>
+                <a href="https://pyx-1.pretendyoure.xyz/zy/game.jsp" target="_blank" class="game-link">Cards Against Humanity</a>
+                <a href="https://play.unofreak.com" target="_blank" class="game-link">Uno Online</a>
+                <a href="https://swellgarfo.com/scattergories" target="_blank" class="game-link">Scattergories</a>
+                <a href="https://chess.com" target="_blank" class="game-link">Chess.com</a>
+                <a href="https://backgammongalaxy.com" target="_blank" class="game-link">Backgammon Galaxy</a>
+                <a href="https://dominion.games" target="_blank" class="game-link">Dominion Online</a>
+                <a href="https://tabletopia.com" target="_blank" class="game-link">Tabletopia</a>
+                <a href="https://www.yucata.de" target="_blank" class="game-link">Yucata.de</a>
+                <a href="https://www.eothello.com" target="_blank" class="game-link">Othello</a>
+                <a href="https://www.nytimes.com/games/wordle" target="_blank" class="game-link">Wordle</a>
+                <a href="https://www.quordle.com" target="_blank" class="game-link">Quordle</a>
+                <a href="https://squaredle.app" target="_blank" class="game-link">Squaredle</a>
+            </div>
+            <div class="youtube-container" id="youtube-container">
+                <div class="youtube-content">
+                    <div id="youtube-video-player" class="mb-4">
+                        <iframe id="youtube-iframe" src="" allowfullscreen class="hidden w-full h-48"></iframe>
+                    </div>
+                    <div id="youtube-video-list" class="grid grid-cols-1 gap-2"></div>
+                </div>
+            </div>
+            <div class="watchparty-screen" id="watchparty-screen">
+                <h2 class="text-xl font-bold mb-4">Watch Party Platforms</h2>
+                <h3 class="text-lg font-bold mb-2">Social & Watch Party Platforms</h3>
+                <a href="https://tiktok.com" target="_blank" class="game-link">TikTok</a>
+                <a href="https://ted.com" target="_blank" class="game-link">TED Talk</a>
+                <a href="https://soundcloud.com" target="_blank" class="game-link">SoundCloud</a>
+                <a href="https://facebook.com/watch" target="_blank" class="game-link">Facebook Watch</a>
+                <a href="https://dailymotion.com" target="_blank" class="game-link">Dailymotion</a>
+                <a href="https://twitch.tv" target="_blank" class="game-link">Twitch</a>
+                <h3 class="text-lg font-bold mb-2 mt-4">OTT Streaming Platforms</h3>
+                <a href="https://youtube.com" target="_blank" class="game-link">YouTube</a>
+                <a href="https://netflix.com" target="_blank" class="game-link">Netflix</a>
+                <a href="https://primevideo.com" target="_blank" class="game-link">Amazon Prime Video</a>
+                <a href="https://disneyplus.com" target="_blank" class="game-link">Disney+</a>
+                <a href="https://hulu.com" target="_blank" class="game-link">Hulu</a>
+                <a href="https://tv.apple.com" target="_blank" class="game-link">Apple TV+</a>
+                <a href="https://max.com" target="_blank" class="game-link">HBO Max (Max)</a>
+                <a href="https://peacocktv.com" target="_blank" class="game-link">Peacock TV</a>
+                <a href="https://paramountplus.com" target="_blank" class="game-link">Paramount+</a>
+                <a href="https://zee5.com" target="_blank" class="game-link">ZEE5</a>
+                <a href="https://voot.com" target="_blank" class="game-link">Voot</a>
+                <a href="https://sonyliv.com" target="_blank" class="game-link">SonyLIV</a>
+                <a href="https://jiocinema.com" target="_blank" class="game-link">JioCinema</a>
+                <a href="https://hotstar.com" target="_blank" class="game-link">Hotstar</a>
+            </div>
+            <div class="happytalk-screen" id="happytalk-screen">
+                <div class="happytalk-container">
+                    <div class="happytalk-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="happytalk-text">Happy Talk</div>
+                    <div class="happytalk-tagline">Connect & Speak Freely</div>
+                </div>
+            </div>
+            <div class="search-container" id="youtube-search-container">
+                <input id="youtube-search-input" placeholder="Search YouTube" type="text"/>
+            </div>
+            <div class="bottom-nav">
+                <button id="home-button"><i class="fas fa-home"></i></button>
+                <button id="search-button"><i class="fas fa-search"></i></button>
+                <button id="expand-button"><i class="fas fa-expand"></i></button>
+                <button id="back-button"><i class="fas fa-arrow-left"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyAsQ7E02xCW3qAdxwHK2PLj-pppMfm9fBw';
+
+        const plusButton = document.getElementById('plus-button');
+        const phoneWrap = document.getElementById('phone-wrap');
+        const homeButton = document.getElementById('home-button');
+        const searchButton = document.getElementById('search-button');
+        const expandButton = document.getElementById('expand-button');
+        const backButton = document.getElementById('back-button');
+        const youtubeApp = document.getElementById('youtube-app');
+        const gamesFolder = document.getElementById('games-folder');
+        const watchpartyApp = document.getElementById('watchparty-app');
+        const whiteboardApp = document.getElementById('whiteboard-app');
+        const happytalkApp = document.getElementById('happytalk-app');
+        const feedApp = document.getElementById('feed-app');
+        const socialApp = document.getElementById('social-app');
+        const movieApp = document.getElementById('movie-app');
+        const aitoolsApp = document.getElementById('aitools-app');
+        const appScreen = document.getElementById('app-screen');
+        const gamesScreen = document.getElementById('games-screen');
+        const youtubeContainer = document.getElementById('youtube-container');
+        const watchpartyScreen = document.getElementById('watchparty-screen');
+        const happytalkScreen = document.getElementById('happytalk-screen');
+        const youtubeSearchContainer = document.getElementById('youtube-search-container');
+        const youtubeSearchInput = document.getElementById('youtube-search-input');
+        const appSearchInput = document.getElementById('app-search-input');
+
+        // Time Widget
+        function updateTime() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            document.getElementById('time-widget').innerHTML = `${hours}:${minutes} <span class="ampm">${ampm}</span>`;
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date-widget').innerText = now.toLocaleDateString('en-US', options);
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Toggle Phone Interface
+        plusButton.addEventListener('click', () => {
+            phoneWrap.classList.toggle('active');
+            plusButton.style.display = phoneWrap.classList.contains('active') ? 'none' : 'flex';
+        });
+
+        // Home Button
+        homeButton.addEventListener('click', () => {
+            appScreen.classList.add('active');
+            gamesScreen.classList.remove('active');
+            youtubeContainer.classList.remove('active');
+            watchpartyScreen.classList.remove('active');
+            happytalkScreen.classList.remove('active');
+            youtubeSearchContainer.classList.remove('active');
+        });
+
+        // Search Button
+        searchButton.addEventListener('click', () => {
+            if (youtubeContainer.classList.contains('active')) {
+                youtubeSearchContainer.classList.toggle('active');
+            }
+        });
+
+        // Expand Button (Placeholder)
+        expandButton.addEventListener('click', () => {
+            alert('Expand functionality not implemented.');
+        });
+
+        // Back Button
+        backButton.addEventListener('click', () => {
+            appScreen.classList.add('active');
+            gamesScreen.classList.remove('active');
+            youtubeContainer.classList.remove('active');
+            watchpartyScreen.classList.remove('active');
+            happytalkScreen.classList.remove('active');
+            youtubeSearchContainer.classList.remove('active');
+        });
+
+        // App Navigation
+        youtubeApp.addEventListener('click', () => {
+            appScreen.classList.remove('active');
+            youtubeContainer.classList.add('active');
+        });
+
+        gamesFolder.addEventListener('click', () => {
+            appScreen.classList.remove('active');
+            gamesScreen.classList.add('active');
+        });
+
+        watchpartyApp.addEventListener('click', () => {
+            appScreen.classList.remove('active');
+            watchpartyScreen.classList.add('active');
+        });
+
+        whiteboardApp.addEventListener('click', () => {
+            alert('Whiteboard app not implemented.');
+        });
+
+        happytalkApp.addEventListener('click', () => {
+            appScreen.classList.remove('active');
+            happytalkScreen.classList.add('active');
+        });
+
+        feedApp.addEventListener('click', () => {
+            alert('Feed app not implemented.');
+        });
+
+        socialApp.addEventListener('click', () => {
+            alert('Social app not implemented.');
+        });
+
+        movieApp.addEventListener('click', () => {
+            alert('Movie app not implemented.');
+        });
+
+        aitoolsApp.addEventListener('click', () => {
+            alert('AI Tools app not implemented.');
+        });
+
+        // YouTube Search
+        youtubeSearchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchYouTube(youtubeSearchInput.value);
+            }
+        });
+
+        function searchYouTube(query) {
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+            
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    const videoList = document.getElementById('youtube-video-list');
+                    videoList.innerHTML = '';
+                    data.items.forEach(item => {
+                        const videoItem = document.createElement('div');
+                        videoItem.className = 'video-item bg-gray-700 rounded-lg overflow-hidden';
+                        videoItem.innerHTML = `
+                            <img alt="${item.snippet.title}" src="${item.snippet.thumbnails.medium.url}" class="w-full"/>
+                            <div class="p-2">
+                                <h3 class="font-bold text-sm">${item.snippet.title}</h3>
+                                <p class="text-gray-400 text-xs">${item.snippet.channelTitle}</p>
+                            </div>
+                        `;
+                        videoItem.addEventListener('click', () => playYouTubeVideo(item.id.videoId));
+                        videoList.appendChild(videoItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching YouTube videos:', error));
+        }
+
+        function playYouTubeVideo(videoId) {
+            const iframe = document.getElementById('youtube-iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            iframe.classList.remove('hidden');
+        }
+
+        // App Search
+        appSearchInput.addEventListener('input', () => {
+            const query = appSearchInput.value.toLowerCase();
+            const appItems = document.querySelectorAll('.app-item');
+            appItems.forEach(item => {
+                const title = item.querySelector('.app-title').textContent.toLowerCase();
+                item.style.display = title.includes(query) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
