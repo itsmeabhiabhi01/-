@@ -496,7 +496,7 @@
                         <div class="app-title">Paytm</div>
                     </div>
                     <div class="app-item">
-                        <div class="app-icon" style="background-image: url('https://img.icons8.com/?size=100&id=OYtBxIlJwMGA&format=png&color=000000'); background-size: cover;" onclick="window.open('https://www.phonepe.com', '_blank')"></div>
+                        <div class="app-icon" style="background-image: url('https://img.icons8.com/?size=100&id=OYtBxIlJw0zH&format=png&color=000000'); background-size: cover;" onclick="window.open('https://www.phonepe.com', '_blank')"></div>
                         <div class="app-title">PhonePe</div>
                     </div>
                     <div class="app-item">
@@ -859,8 +859,11 @@
                     <div class="watchparty-item">
                         <a href="https://ted.com" target="_blank" class="watchparty-link">
                             <svg viewBox="0 0 64 64">
-                                <rect x="12" y="24" width="40" height="16分野
-
+                                <rect x="12" y="24" width="40" height="16" rx="8" fill="#e62b1e"/>
+                                <text x="32" y="36" font-size="16" fill="#fff" font-family="Arial" text-anchor="middle">TED</text>
+                            </svg>
+                        </a>
+                        <div class="watchparty-title">TED</div>
                     </div>
                 </div>
                 <h3 class="text-lg font-bold mb-2 mt-4">OTT Streaming Platforms</h3>
@@ -1069,37 +1072,21 @@
             }
         });
 
-        // Home Button
+        // Bottom Navigation Button Redirects
         homeButton.addEventListener('click', () => {
-            appScreen.classList.add('active');
-            gamesScreen.classList.remove('active');
-            youtubeContainer.classList.remove('active');
-            watchpartyScreen.classList.remove('active');
-            happytalkScreen.classList.remove('active');
-            searchContainer.classList.remove('active');
-            timeWidget.style.display = 'block';
+            window.open('https://www.google.com', '_blank');
         });
 
-        // Search Button
         searchButton.addEventListener('click', () => {
-            searchContainer.classList.toggle('active');
-            searchInput.focus();
+            window.open('https://www.google.com/search', '_blank');
         });
 
-        // Expand Button (Placeholder)
         expandButton.addEventListener('click', () => {
-            alert('Expand functionality not implemented.');
+            window.open('https://www.youtube.com', '_blank');
         });
 
-        // Back Button
         backButton.addEventListener('click', () => {
-            appScreen.classList.add('active');
-            gamesScreen.classList.remove('active');
-            youtubeContainer.classList.remove('active');
-            watchpartyScreen.classList.remove('active');
-            happytalkScreen.classList.remove('active');
-            searchContainer.classList.remove('active');
-            timeWidget.style.display = 'block';
+            window.open('https://x.com', '_blank');
         });
 
         // App Navigation
