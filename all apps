@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>App Grid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Work+Sans:wght@200;400&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to right, #004d4d, #004d4d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .appGrid {
+            width: 100%;
+            max-width: 600px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .logo {
+            text-align: center;
+            cursor: pointer;
+        }
+        .logo img {
+            width: 80px;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        .logo img:hover {
+            transform: scale(1.1);
+        }
+        .logo p {
+            margin: 5px 0 0;
+            font-family: 'Work Sans', sans-serif;
+            font-size: 14px;
+            color: white;
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="appGrid">
+        <div class="logo" onclick="window.open('https://www.youtube.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=Fzmez16u38Xl&format=png&color=000000" alt="YouTube">
+            <p>YouTube</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.instagram.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=BrU2BBoRXiWq&format=png&color=000000" alt="Instagram">
+            <p>Instagram</p>
+        </div>
+        <div class="logo" onclick="window.open('https://x.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=phOKFKYpe00C&format=png&color=000000" alt="X">
+            <p>X</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.facebook.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=118497&format=png&color=000000" alt="Facebook">
+            <p>Facebook</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.tiktok.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=118638&format=png&color=000000" alt="TikTok">
+            <p>TikTok</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.pinterest.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=63676&format=png&color=000000" alt="Pinterest">
+            <p>Pinterest</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.linkedin.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=xuvGCOXi8Wyg&format=png&color=000000" alt="LinkedIn">
+            <p>LinkedIn</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.quora.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=wPcChHypTdti&format=png&color=000000" alt="Quora">
+            <p>Quora</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.reddit.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=FLisMqR76b1i&format=png&color=000000" alt="Reddit">
+            <p>Reddit</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.google.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="Google">
+            <p>Google</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.google.com/chrome', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=63785&format=png&color=000000" alt="Chrome">
+            <p>Chrome</p>
+        </div>
+        <div class="logo" onclick="window.open('https://maps.google.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=DcygmpZqBEd9&format=png&color=000000" alt="Google Maps">
+            <p>Google Maps</p>
+        </div>
+        <div class="logo" onclick="window.open('https://docs.google.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=30464&format=png&color=000000" alt="Google Docs">
+            <p>Google Docs</p>
+        </div>
+        <div class="logo" onclick="window.open('https://mail.google.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=qyRpAggnV0zH&format=png&color=000000" alt="Gmail">
+            <p>Gmail</p>
+        </div>
+        <div class="logo" onclick="window.open('https://pay.google.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=d3FdjviJ7gNe&format=png&color=000000" alt="Google Pay">
+            <p>Google Pay</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.amazon.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=21295&format=png&color=000000" alt="Amazon">
+            <p>Amazon</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.amazon.com/amazonprime', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=TUt56jArwSOO&format=png&color=000000" alt="Amazon Prime">
+            <p>Amazon Prime</p>
+        </div>
+        <div class="logo" onclick="window.open('https://music.amazon.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=3TE5FcLikFfj&format=png&color=000000" alt="Amazon Music">
+            <p>Amazon Music</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.openai.com/chatgpt', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=FBO05Dys9QCg&format=png&color=000000" alt="ChatGPT">
+            <p>ChatGPT</p>
+        </div>
+        <div class="logo" onclick="window.open('https://x.ai', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=eoxMN35Z6JKg&format=png&color=000000" alt="AI">
+            <p>AI</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.spotify.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=G9XXzb9XaEKX&format=png&color=000000" alt="Spotify">
+            <p>Spotify</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.netflix.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=ortlsYTZxMvT&format=png&color=000000" alt="Netflix">
+            <p>Netflix</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.flipkart.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=UU2im0hihoyi&format=png&color=000000" alt="Flipkart">
+            <p>Flipkart</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.swiggy.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=M8M9YjBrtUkd&format=png&color=000000" alt="Swiggy">
+            <p>Swiggy</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.zomato.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=8VXmexoroqDq&format=png&color=000000" alt="Zomato">
+            <p>Zomato</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.paytm.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=Aub11Fs5DJVg&format=png&color=000000" alt="Paytm">
+            <p>Paytm</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.phonepe.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=OYtBxIlJwMGA&format=png&color=000000" alt="PhonePe">
+            <p>PhonePe</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.notion.so', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=uVERmCBZZACL&format=png&color=000000" alt="Notion">
+            <p>Notion</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.canva.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=iWw83PVcBpLw&format=png&color=000000" alt="Canva">
+            <p>Canva</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.wikipedia.org', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=12470&format=png&color=000000" alt="Wikipedia">
+            <p>Wikipedia</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.whatsapp.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=16713&format=png&color=000000" alt="WhatsApp">
+            <p>WhatsApp</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.apple.com/mail', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=cHNRcWMI2bLJ&format=png&color=000000" alt="Mail">
+            <p>Mail</p>
+        </div>
+        <div class="logo" onclick="window.open('https://snapchat.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=67599&format=png&color=000000" alt="Snapchat">
+            <p>Snapchat</p>
+        </div>
+        <div class="logo" onclick="window.open('https://telegram.org', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=oWiuH0jFiU0R&format=png&color=000000" alt="Telegram">
+            <p>Telegram</p>
+        </div>
+        <div class="logo" onclick="window.open('https://zoom.us', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=82ewLsKHYlLc&format=png&color=000000" alt="Zoom">
+            <p>Zoom</p>
+        </div>
+        <div class="logo" onclick="window.open('https://meet.google.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=pE97I4t7Il9M&format=png&color=000000" alt="Google Meet">
+            <p>Google Meet</p>
+        </div>
+        <div class="logo" onclick="window.open('https://music.youtube.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=V1cbDThDpbRc&format=png&color=000000" alt="YouTube Music">
+            <p>YouTube Music</p>
+        </div>
+        <div class="logo" onclick="window.open('https://translate.google.com', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=13647&format=png&color=000000" alt="Google Translate">
+            <p>Google Translate</p>
+        </div>
+        <div class="logo" onclick="window.open('https://www.perplexity.ai', '_blank')">
+            <img src="https://img.icons8.com/?size=100&id=kzJWN5jCDzpq&format=png&color=000000" alt="Perplexity AI">
+            <p>Perplexity AI</p>
+        </div>
+    </div>
+</body>
+</html>
