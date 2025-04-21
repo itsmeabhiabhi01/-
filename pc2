@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 | Home</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .home-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: url(https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/home.jpg?raw=true);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: cover;
+            z-index: 400;
+        }
+        .icons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 135px;
+            flex-direction: column;
+        }
+        .icons img {
+            z-index: 500;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+        }
+        .taskbar {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            height: 45px;
+            width: 100%;
+            background: rgba(0,0,0,0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 500;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .task-icons {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            flex-direction: row;
+        }
+        .task-icons img {
+            z-index: 500;
+            width: 25px;
+            height: 25px;
+            margin: 0px 10px;
+        }
+        #start {
+            width: 40px;
+            height: 40px;
+            z-index: 600;
+        }
+        .right-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        .right-box ion-icon, .time {
+            z-index: 500;
+        }
+        ion-icon {
+            width: 20px;
+            height: 20px;
+            color: #fdfdfd;
+            margin: 0px 5px;
+        }
+        .time {
+            color: #fdfdfd;
+            margin: 0px 5px;
+            font-size: 15px;
+        }
+        .start {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 400;
+            height: 100vh;
+            width: 100%;
+            margin-top: 8vh;
+        }
+        .start img {
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(1000px);
+        }
+    </style>
+</head>
+<body>
+    <div class="home">
+        <div class="home-screen"></div>
+        <div class="icons">
+            <img src="https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/recyclebinicon.png?raw=true" id="recyclebin" alt="">
+            <img src="https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/edgeicon.png?raw=true" id="edge" alt="">
+        </div>
+        <div class="taskbar">
+            <div class="dump"></div>
+            <div class="task-icons">
+                <img src="https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/favicon.png?raw=true" id="start" onclick="openmenu()" alt="">
+                <img src="https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/search.png?raw=true" alt="">
+                <img src="https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/file.png?raw=true" alt="">
+                <img src="https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/edgeicon.png?raw=true" alt="">
+                <img src="https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/store.png?raw=true" alt="">
+            </div>
+            <div class="right-box">
+                <ion-icon name="chevron-up-outline"></ion-icon>
+                <ion-icon name="wifi-outline"></ion-icon>
+                <ion-icon name="volume-mute-outline"></ion-icon>
+                <div class="time">15:05</div>
+            </div>
+        </div>
+        <div class="start">
+            <img src="https://github.com/imtiyazshamim/Windows-11-Os-Startup-Animation/blob/main/Shamim%20Windows%2011/start-menu.png?raw=true" id="start-menu" alt="">
+        </div>
+    </div>
+
+    <script>
+        const start = gsap.timeline({
+            paused: "true"
+        });
+        start.to("#start-menu", {
+            opacity: 1,
+            y: "0%",
+            duration: .5
+        });
+
+        function openmenu() {
+            start.reversed() ? start.play() : start.reverse();
+        }
+    </script>
+</body>
+</html>
